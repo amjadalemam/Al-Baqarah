@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al-Baqarah — Ruku 1 (Ayahs 1-7)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0e2b27;
+    --ink-2:#123832;
+    --gold:#c9a24b;
+    --gold-soft:#e3c789;
+    --cream:#f4ecd8;
+    --sage:#8bab9c;
+    --line:rgba(244,236,216,0.14);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(201,162,75,0.10), transparent 60%),
+      radial-gradient(900px 500px at 100% 10%, rgba(139,171,156,0.08), transparent 55%),
+      var(--ink);
+    color:var(--cream);
+    font-family:'Newsreader', serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:28px 18px 80px;}
+  button{font-family:inherit;}
+
+  header{text-align:center;padding:26px 10px 22px;}
+  .eyebrow{
+    font-family:'Inter',sans-serif;font-size:11px;letter-spacing:0.22em;
+    text-transform:uppercase;color:var(--sage);margin-bottom:14px;
+  }
+  .title-ar{font-family:'Amiri', serif;font-size:clamp(32px,7vw,48px);color:var(--gold-soft);line-height:1.3;margin:0 0 6px;}
+  .title-en{font-family:'Newsreader', serif;font-weight:500;font-style:italic;font-size:clamp(15px,3vw,19px);color:var(--cream);opacity:0.85;margin:0;}
+  .rule{width:64px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:20px auto;}
+  .subnote{font-family:'Inter',sans-serif;font-size:12px;color:var(--sage);max-width:560px;margin:0 auto;line-height:1.7;}
+  .subnote b{color:var(--gold-soft);font-weight:600;}
+
+  .voice-note{
+    font-family:'Inter',sans-serif;font-size:11.5px;color:var(--sage);
+    background:var(--ink-2);border:1px solid var(--line);border-radius:2px;
+    padding:12px 16px;margin:22px 0;line-height:1.6;
+  }
+  .voice-note b{color:var(--gold-soft);}
+
+  .audio-status{
+    font-family:'Inter',sans-serif;font-size:12px;line-height:1.6;
+    padding:12px 16px;margin-bottom:16px;border-radius:2px;
+    background:rgba(201,162,75,0.12);border:1px solid var(--gold);color:var(--gold-soft);
+    position:sticky;top:10px;z-index:10;
+  }
+  .audio-status.is-error{
+    background:rgba(201,120,75,0.14);border-color:#c9784b;color:#e3a689;
+  }
+
+  .verse-card{
+    border:1px solid var(--line);
+    background:var(--ink-2);
+    margin-bottom:16px;
+    padding:22px 20px;
+  }
+  .verse-head{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:18px;
+  }
+  .verse-num{
+    font-family:'Inter',sans-serif;font-size:11px;letter-spacing:0.08em;
+    color:var(--gold);text-transform:uppercase;
+  }
+  .play-verse{
+    display:flex;align-items:center;gap:6px;
+    background:none;border:1px solid var(--line);border-radius:999px;
+    padding:7px 14px;color:var(--gold-soft);font-family:'Inter',sans-serif;
+    font-size:11.5px;cursor:pointer;transition:all .18s;
+  }
+  .play-verse:hover{border-color:var(--gold);}
+  .play-verse svg{width:9px;height:9px;fill:var(--gold);}
+  .play-verse.playing{background:rgba(201,162,75,0.14);}
+
+  .word-row{
+    display:flex;flex-wrap:wrap;gap:4px 2px;
+    direction:rtl;
+    margin-bottom:16px;
+    padding:10px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .word{
+    display:flex;flex-direction:column;align-items:center;
+    padding:8px 10px;
+    cursor:pointer;
+    border-radius:2px;
+    transition:background .15s;
+    min-width:52px;
+  }
+  .word:hover{background:rgba(201,162,75,0.10);}
+  .word.playing{background:rgba(201,162,75,0.22);}
+  .word .w-ar{
+    font-family:'Amiri',serif;font-size:26px;color:var(--gold-soft);
+    line-height:1.5;white-space:nowrap;
+  }
+  .word .w-tr{
+    font-family:'Inter',sans-serif;font-style:italic;font-size:10px;
+    color:var(--cream);opacity:0.75;margin-top:4px;white-space:nowrap;
+    direction:ltr;
+  }
+  .word .w-gloss{
+    font-family:'Inter',sans-serif;font-size:9px;
+    color:var(--sage);margin-top:2px;white-space:nowrap;direction:ltr;
+    max-width:90px;overflow:hidden;text-overflow:ellipsis;
+  }
+
+  .translit-line{
+    font-family:'Newsreader',serif;font-style:italic;font-size:15px;
+    color:var(--gold-soft);opacity:0.9;margin-bottom:10px;line-height:1.6;
+  }
+  .english-line{
+    font-family:'Inter',sans-serif;font-size:14px;color:var(--cream);
+    line-height:1.7;margin-bottom:14px;
+  }
+
+  .expand-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .expand-btn{
+    background:none;border:1px solid var(--line);color:var(--sage);
+    font-family:'Inter',sans-serif;font-size:11px;padding:6px 12px;
+    border-radius:999px;cursor:pointer;transition:all .18s;
+  }
+  .expand-btn:hover{color:var(--gold-soft);border-color:var(--gold);}
+  .expand-btn.active{background:rgba(201,162,75,0.14);border-color:var(--gold);color:var(--gold-soft);}
+
+  .panel{
+    display:none;margin-top:14px;padding:14px 16px;
+    background:var(--ink);border-left:2px solid var(--gold);
+    font-family:'Inter',sans-serif;font-size:12.5px;color:var(--sage);line-height:1.7;
+  }
+  .panel.open{display:block;}
+  .panel-label{
+    font-size:10px;letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--gold-soft);margin-bottom:6px;font-weight:600;
+  }
+  .panel.no-hadith{font-style:italic;opacity:0.8;}
+
+  footer{
+    text-align:center;margin-top:40px;font-family:'Inter',sans-serif;
+    font-size:11px;color:var(--sage);opacity:0.7;line-height:1.8;
+  }
+  footer a{color:var(--gold-soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Sūrah 2 · Al-Baqarah · Rukū 1</div>
+    <div class="title-ar">سُورَةُ البَقَرَة</div>
+    <p class="title-en">Ayahs 1–7 — a working foundation for the full sūrah</p>
+    <div class="rule"></div>
+    <p class="subnote">
+      Arabic text, translation, and reciter audio are sourced from the Qur'an itself and a real recitation —
+      nothing here is generated by AI. Tap any word to hear <b>that exact word</b>, sliced from the real
+      recitation of Mishary Alafasy using published word-timing data.
+    </p>
+  </header>
+
+  <div class="voice-note">
+    <b>How this works:</b> Word-by-word audio is not text-to-speech — it's the real recitation,
+    precisely sliced using an open, published timing dataset aligned to this recording.
+    Tafsīr summaries are written in plain language based on mainstream commentary (Ibn Kathīr and others);
+    a hadīth is included only where one is well-established and directly relevant — not on every verse.
+    This is Rukū 1 only, a foundation to build the rest of the sūrah on.
+  </div>
+
+  <div id="audioStatus" class="audio-status" style="display:none;"></div>
+
+  <div id="verses"></div>
+
+  <footer>
+    Recitation: Mishary Rashid Alafasy · Translation: based on Saheeh International ·
+    Word timing data: CC-BY 4.0, quran-align project
+  </footer>
+</div>
+
+<audio id="wordAudio" preload="none"></audio>
+
+<script>
+const VERSES = {"1": {"arabic": "الم", "translit": "Alif-Lam-Meem.", "english": "Alif, Lam, Meem.", "words": [{"ar": "الم", "tr": "Alif-Lam-Meem", "gloss": "disjointed letters"}], "tafsir": "These are among the “disjointed letters” (al-muqatta’at) that open several surahs. The majority view among the early scholars is that their precise meaning is known only to Allah. Others suggest they draw attention to the miraculous nature of the Qur’an — composed from the very same letters the Arabs used in everyday speech, yet inimitable.", "hadith": null}, "2": {"arabic": "ذَٰلِكَ ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ", "translit": "Dhalika al-kitabu la rayba fihi hudan lil-muttaqin.", "english": "This is the Book about which there is no doubt, a guidance for those conscious of Allah —", "words": [{"ar": "ذَٰلِكَ", "tr": "dhalika", "gloss": "that"}, {"ar": "ٱلْكِتَـٰبُ", "tr": "al-kitabu", "gloss": "the Book"}, {"ar": "لَا", "tr": "la", "gloss": "no / not"}, {"ar": "رَيْبَ", "tr": "rayba", "gloss": "doubt"}, {"ar": "فِيهِ", "tr": "fihi", "gloss": "in it"}, {"ar": "هُدًۭى", "tr": "hudan", "gloss": "guidance"}, {"ar": "لِّلْمُتَّقِينَ", "tr": "lil-muttaqin", "gloss": "for the God-conscious"}], "tafsir": "“That” refers to the Qur’an, affirming it as the perfect Book, free of any doubt as to its divine origin. It is described as guidance specifically for al-muttaqun — those mindful of Allah, who believe, act righteously, and avoid what He has forbidden.", "hadith": null}, "3": {"arabic": "ٱلَّذِينَ يُؤْمِنُونَ بِٱلْغَيْبِ وَيُقِيمُونَ ٱلصَّلَوٰةَ وَمِمَّا رَزَقْنَـٰهُمْ يُنفِقُونَ", "translit": "Alladhina yu’minuna bil-ghaybi wa yuqimuna as-salata wa mimma razaqnahum yunfiqun.", "english": "Who believe in the unseen, establish prayer, and spend out of what We have provided for them,", "words": [{"ar": "ٱلَّذِينَ", "tr": "alladhina", "gloss": "those who"}, {"ar": "يُؤْمِنُونَ", "tr": "yu’minuna", "gloss": "believe"}, {"ar": "بِٱلْغَيْبِ", "tr": "bil-ghaybi", "gloss": "in the unseen"}, {"ar": "وَيُقِيمُونَ", "tr": "wa yuqimuna", "gloss": "and establish"}, {"ar": "ٱلصَّلَوٰةَ", "tr": "as-salata", "gloss": "the prayer"}, {"ar": "وَمِمَّا", "tr": "wa mimma", "gloss": "and from what"}, {"ar": "رَزَقْنَـٰهُمْ", "tr": "razaqnahum", "gloss": "We provided them"}, {"ar": "يُنفِقُونَ", "tr": "yunfiqun", "gloss": "they spend"}], "tafsir": "Three defining traits of the righteous are named here: firm faith in matters beyond sense-perception (Allah, the angels, the afterlife, and so on), diligent performance of the prescribed prayers, and generosity in spending from one’s wealth in charity.", "hadith": "The well-known Hadith of Jibril (Sahih Muslim) elaborates on belief in the unseen: that faith (iman) means belief in Allah, His angels, His books, His messengers, the Last Day, and divine decree (qadar) — the same six pillars this verse alludes to in brief."}, "4": {"arabic": "وَٱلَّذِينَ يُؤْمِنُونَ بِمَآ أُنزِلَ إِلَيْكَ وَمَآ أُنزِلَ مِن قَبْلِكَ وَبِٱلْـَٔاخِرَةِ هُمْ يُوقِنُونَ", "translit": "Wallathina yu’minuna bima unzila ilayka wa ma unzila min qablika wa bil-akhirati hum yuqinun.", "english": "And who believe in what has been revealed to you, [O Muhammad], and what was revealed before you, and of the Hereafter they are certain [in faith].", "words": [{"ar": "وَٱلَّذِينَ", "tr": "wallathina", "gloss": "and those who"}, {"ar": "يُؤْمِنُونَ", "tr": "yu’minuna", "gloss": "believe"}, {"ar": "بِمَآ", "tr": "bima", "gloss": "in what"}, {"ar": "أُنزِلَ", "tr": "unzila", "gloss": "was revealed"}, {"ar": "إِلَيْكَ", "tr": "ilayka", "gloss": "to you"}, {"ar": "وَمَآ", "tr": "wa ma", "gloss": "and what"}, {"ar": "أُنزِلَ", "tr": "unzila", "gloss": "was revealed"}, {"ar": "مِن", "tr": "min", "gloss": "from"}, {"ar": "قَبْلِكَ", "tr": "qablika", "gloss": "before you"}, {"ar": "وَبِٱلْـَٔاخِرَةِ", "tr": "wa bil-akhirati", "gloss": "and in the Hereafter"}, {"ar": "هُمْ", "tr": "hum", "gloss": "they"}, {"ar": "يُوقِنُونَ", "tr": "yuqinun", "gloss": "are certain"}], "tafsir": "The description of the righteous extends to belief in all revealed scripture — both the Qur’an given to Prophet Muhammad ⾤ and the revelations given to earlier prophets — together with certain conviction in the Hereafter: resurrection, judgment, and the life to come.", "hadith": null}, "5": {"arabic": "أُو۟لَـٰٓئِكَ عَلَىٰ هُدًۭى مِّن رَّبِّهِمْ ۖ وَأُو۟لَـٰٓئِكَ هُمُ ٱلْمُفْلِحُونَ", "translit": "Ula’ika ‘ala hudan min rabbihim wa ula’ika humul-muflihun.", "english": "Those are upon [right] guidance from their Lord, and it is those who are the successful.", "words": [{"ar": "أُو۟لَـٰٓئِكَ", "tr": "ula’ika", "gloss": "those"}, {"ar": "عَلَىٰ", "tr": "‘ala", "gloss": "upon"}, {"ar": "هُدًۭى", "tr": "hudan", "gloss": "guidance"}, {"ar": "مِّن", "tr": "min", "gloss": "from"}, {"ar": "رَّبِّهِمْ", "tr": "rabbihim", "gloss": "their Lord"}, {"ar": "وَأُو۟لَـٰٓئِكَ", "tr": "wa ula’ika", "gloss": "and those"}, {"ar": "هُمُ", "tr": "humu", "gloss": "they"}, {"ar": "ٱلْمُفْلِحُونَ", "tr": "al-muflihun", "gloss": "the successful"}], "tafsir": "Allah confirms that those possessing the qualities just described — belief, prayer, charity, and certainty in revelation and the Hereafter — are firmly guided, and that it is they who will ultimately succeed, in this world and the next.", "hadith": null}, "6": {"arabic": "إِنَّ ٱلَّذِينَ كَفَرُوا۟ سَوَآءٌ عَلَيْهِمْ ءَأَنذَرْتَهُمْ أَمْ لَمْ تُنذِرْهُمْ لَا يُؤْمِنُونَ", "translit": "Inna allathina kafaru sawa’un ‘alayhim a-anzartahum am lam tunzirhum la yu’minun.", "english": "Indeed, those who disbelieve — it is all the same for them whether you warn them or do not warn them — they will not believe.", "words": [{"ar": "إِنَّ", "tr": "inna", "gloss": "indeed"}, {"ar": "ٱلَّذِينَ", "tr": "allathina", "gloss": "those who"}, {"ar": "كَفَرُوا۟", "tr": "kafaru", "gloss": "disbelieved"}, {"ar": "سَوَآءٌ", "tr": "sawa’un", "gloss": "same / equal"}, {"ar": "عَلَيْهِمْ", "tr": "‘alayhim", "gloss": "upon them"}, {"ar": "ءَأَنذَرْتَهُمْ", "tr": "a-anzartahum", "gloss": "whether you warn them"}, {"ar": "أَمْ", "tr": "am", "gloss": "or"}, {"ar": "لَمْ", "tr": "lam", "gloss": "not"}, {"ar": "تُنذِرْهُمْ", "tr": "tunzirhum", "gloss": "you warn them"}, {"ar": "لَا", "tr": "la", "gloss": "not"}, {"ar": "يُؤْمِنُونَ", "tr": "yu’minun", "gloss": "they believe"}], "tafsir": "In stark contrast to the believers just described, the verse turns to those who reject faith outright. Their hearts have become so hardened in disbelief that the Prophet’s warning makes no difference to them either way.", "hadith": "Early exegetes, including reports transmitted from Ibn ‘Abbas, commonly link this verse’s context to specific Jewish leaders of Madinah and pagan chiefs of Makkah who recognized the truth of the message yet knowingly rejected it out of arrogance or self-interest."}, "7": {"arabic": "خَتَمَ ٱللَّهُ عَلَىٰ قُلُوبِهِمْ وَعَلَىٰ سَمْعِهِمْ ۖ وَعَلَىٰٓ أَبْصَـٰرِهِمْ غِشَـٰوَةٌۭ ۖ وَلَهُمْ عَذَابٌ عَظِيمٌۭ", "translit": "Khatama Allahu ‘ala qulubihim wa ‘ala sam’ihim wa ‘ala absarihim ghishawatun wa lahum ‘athabun ‘athim.", "english": "Allah has set a seal upon their hearts and upon their hearing, and over their vision is a veil. And for them is a great punishment.", "words": [{"ar": "خَتَمَ", "tr": "khatama", "gloss": "has sealed"}, {"ar": "ٱللَّهُ", "tr": "Allahu", "gloss": "Allah"}, {"ar": "عَلَىٰ", "tr": "‘ala", "gloss": "upon"}, {"ar": "قُلُوبِهِمْ", "tr": "qulubihim", "gloss": "their hearts"}, {"ar": "وَعَلَىٰ", "tr": "wa ‘ala", "gloss": "and upon"}, {"ar": "سَمْعِهِمْ", "tr": "sam’ihim", "gloss": "their hearing"}, {"ar": "وَعَلَىٰٓ", "tr": "wa ‘ala", "gloss": "and upon"}, {"ar": "أَبْصَـٰرِهِمْ", "tr": "absarihim", "gloss": "their sight"}, {"ar": "غِشَـٰوَةٌۭ", "tr": "ghishawatun", "gloss": "a veil"}, {"ar": "وَلَهُمْ", "tr": "wa lahum", "gloss": "and for them"}, {"ar": "عَذَابٌ", "tr": "‘athabun", "gloss": "punishment"}, {"ar": "عَظِيمٌۭ", "tr": "‘athim", "gloss": "great"}], "tafsir": "As a consequence of their persistent, willful rejection, Allah metaphorically seals their hearts and hearing and places a veil over their sight — meaning they become spiritually unable to perceive or accept the truth — and a severe punishment awaits them in the Hereafter.", "hadith": null}};
+const TIMING = {"1": [[0, 1, 30, 7080]], "2": [[0, 1, 150, 860], [1, 2, 870, 1820], [2, 3, 1830, 2130], [3, 4, 2140, 2680], [4, 5, 2690, 4980], [5, 6, 4990, 5180], [6, 7, 5190, 8610]], "3": [[0, 1, 30, 1010], [1, 2, 1020, 2120], [2, 3, 2130, 3070], [3, 4, 3080, 4200], [4, 5, 4210, 5130], [5, 6, 5140, 6570], [6, 7, 6580, 7930], [7, 8, 7940, 11060]], "4": [[0, 1, 50, 1120], [1, 2, 1130, 2190], [2, 3, 2200, 3920], [3, 4, 3930, 5250], [4, 5, 5260, 5960], [5, 6, 5970, 6180], [6, 7, 6190, 9020], [7, 8, 9030, 9830], [8, 9, 9840, 10640], [9, 10, 10650, 12110], [10, 11, 12120, 12460], [11, 12, 12470, 15480]], "5": [[0, 1, 70, 2490], [1, 2, 2500, 3030], [2, 3, 3040, 3480], [3, 4, 3490, 4240], [4, 5, 4250, 5490], [5, 6, 5500, 7970], [6, 7, 7980, 8380], [7, 8, 8390, 10970]], "6": [[0, 1, 30, 1260], [1, 2, 1270, 2150], [2, 3, 2160, 2880], [3, 4, 2890, 4950], [4, 5, 4960, 5880], [5, 6, 5890, 7780], [6, 7, 7790, 8090], [7, 8, 8100, 8430], [8, 9, 8440, 10080], [9, 10, 10090, 10430], [10, 11, 10440, 12340]], "7": [[0, 1, 140, 660], [1, 2, 670, 1390], [2, 3, 1400, 1950], [3, 4, 1960, 3140], [4, 5, 3150, 3820], [5, 6, 3830, 5210], [6, 7, 5220, 6900], [7, 8, 6910, 8250], [8, 9, 8260, 9580], [9, 10, 9590, 10260], [10, 11, 10270, 11230], [11, 12, 11240, 12940]]};
+const GLOBAL_AYAH_OFFSET = 7; // Al-Fatiha has 7 ayahs
+
+// Multiple independent hosts for the same Alafasy recording, tried in order.
+// everyayah.com is listed first because it's the actual source the word-timing
+// dataset was aligned to.
+function audioUrlsFor(ayahNum){
+  const s = String(2).padStart(3, '0');
+  const a = String(ayahNum).padStart(3, '0');
+  const globalNum = GLOBAL_AYAH_OFFSET + ayahNum;
+  return [
+    `https://everyayah.com/data/Alafasy_128kbps/${s}${a}.mp3`,
+    `https://the-quran-project.github.io/Quran-Audio/Data/1/2_${ayahNum}.mp3`,
+    `https://cdn.islamic.network/quran/audio/128/ar.alafasy/${globalNum}.mp3`,
+  ];
+}
+
+const wordAudio = document.getElementById('wordAudio');
+let currentWordEl = null;
+let timeupdateHandler = null;
+
+function showAudioStatus(msg, isError){
+  const el = document.getElementById('audioStatus');
+  el.textContent = msg;
+  el.style.display = msg ? 'block' : 'none';
+  el.classList.toggle('is-error', !!isError);
+}
+
+function stopWordAudio(){
+  if(timeupdateHandler){
+    wordAudio.removeEventListener('timeupdate', timeupdateHandler);
+    timeupdateHandler = null;
+  }
+  if(currentWordEl){ currentWordEl.classList.remove('playing'); currentWordEl = null; }
+}
+
+// Tries each URL in order. Calls play() on every attempt (not just the
+// first) so a fallback source actually gets told to play, and calls it
+// immediately after setting src each time (not after waiting for network
+// events) so Safari's autoplay-gesture rules don't block it. onReady runs
+// once a source is loaded enough to know its duration, for word-seeking.
+function attemptPlayback(urls, index, onReady){
+  if(index >= urls.length){
+    showAudioStatus(`Could not load audio from any of the ${urls.length} sources tried. Your network or browser may be blocking these audio hosts.`, true);
+    stopWordAudio();
+    return;
+  }
+
+  const onError = () => {
+    wordAudio.removeEventListener('error', onError);
+    wordAudio.removeEventListener('loadedmetadata', onMeta);
+    attemptPlayback(urls, index + 1, onReady);
+  };
+  const onMeta = () => {
+    wordAudio.removeEventListener('error', onError);
+    if(onReady) onReady();
+  };
+  wordAudio.addEventListener('error', onError, { once: true });
+  wordAudio.addEventListener('loadedmetadata', onMeta, { once: true });
+
+  wordAudio.src = urls[index];
+  const playPromise = wordAudio.play();
+  if(playPromise && playPromise.catch){
+    playPromise.catch(() => { /* a real load error will fire the 'error' event above and trigger fallback */ });
+  }
+}
+
+function playWord(ayahNum, wordIndex, el){
+  const segs = TIMING[ayahNum];
+  const seg = segs[wordIndex];
+  if(!seg) return;
+  const [, , startMs, endMs] = seg;
+  const urls = audioUrlsFor(Number(ayahNum));
+
+  stopWordAudio();
+  showAudioStatus('');
+  currentWordEl = el;
+  el.classList.add('playing');
+
+  attemptPlayback(urls, 0, () => {
+    wordAudio.currentTime = startMs / 1000;
+    timeupdateHandler = () => {
+      if(wordAudio.currentTime >= endMs / 1000){
+        wordAudio.pause();
+        stopWordAudio();
+      }
+    };
+    wordAudio.addEventListener('timeupdate', timeupdateHandler);
+  });
+}
+
+let currentVersePlayEl = null;
+function playFullVerse(ayahNum, btn){
+  stopWordAudio();
+  showAudioStatus('');
+  const urls = audioUrlsFor(ayahNum);
+  if(currentVersePlayEl) currentVersePlayEl.classList.remove('playing');
+  currentVersePlayEl = btn;
+  btn.classList.add('playing');
+  wordAudio.onended = () => { btn.classList.remove('playing'); };
+
+  attemptPlayback(urls, 0, null);
+}
+
+const container = document.getElementById('verses');
+
+Object.keys(VERSES).sort((a,b)=>a-b).forEach(numStr => {
+  const num = Number(numStr);
+  const v = VERSES[numStr];
+
+  const card = document.createElement('div');
+  card.className = 'verse-card';
+
+  const wordsHtml = v.words.map((w, i) => `
+    <div class="word" data-ayah="${num}" data-widx="${i}">
+      <div class="w-ar">${w.ar}</div>
+      <div class="w-tr">${w.tr}</div>
+      <div class="w-gloss">${w.gloss}</div>
+    </div>
+  `).join('');
+
+  const hadithPanel = v.hadith
+    ? `<div class="panel" data-panel="hadith-${num}">
+         <div class="panel-label">Related Hadīth / Context</div>
+         ${v.hadith}
+       </div>`
+    : `<div class="panel no-hadith" data-panel="hadith-${num}">
+         <div class="panel-label">Related Hadīth / Context</div>
+         No specific, well-established hadīth is commonly attached to this particular verse.
+       </div>`;
+
+  card.innerHTML = `
+    <div class="verse-head">
+      <span class="verse-num">Ayah ${num}</span>
+      <button class="play-verse" data-ayah="${num}">
+        <svg viewBox="0 0 12 12"><path d="M1 1l10 5-10 5V1z"/></svg>
+        Play verse
+      </button>
+    </div>
+    <div class="word-row">${wordsHtml}</div>
+    <div class="translit-line">${v.translit}</div>
+    <div class="english-line">${v.english}</div>
+    <div class="expand-row">
+      <button class="expand-btn" data-toggle="tafsir-${num}">Tafsīr</button>
+      <button class="expand-btn" data-toggle="hadith-${num}">Hadīth / Context</button>
+    </div>
+    <div class="panel" data-panel="tafsir-${num}">
+      <div class="panel-label">Tafsīr</div>
+      ${v.tafsir}
+    </div>
+    ${hadithPanel}
+  `;
+  container.appendChild(card);
+});
+
+// word click handlers
+container.querySelectorAll('.word').forEach(el => {
+  el.addEventListener('click', () => {
+    const ayah = el.dataset.ayah;
+    const widx = Number(el.dataset.widx);
+    playWord(ayah, widx, el);
+  });
+});
+
+// verse play handlers
+container.querySelectorAll('.play-verse').forEach(btn => {
+  btn.addEventListener('click', () => {
+    playFullVerse(Number(btn.dataset.ayah), btn);
+  });
+});
+
+// expand/collapse panels
+container.querySelectorAll('.expand-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const key = btn.dataset.toggle;
+    const panel = container.querySelector(`.panel[data-panel="${key}"]`);
+    const isOpen = panel.classList.toggle('open');
+    btn.classList.toggle('active', isOpen);
+  });
+});
+
+// Preflight: silently check that at least one audio source is reachable,
+// without waiting for a user click, trying each mirror in turn.
+(function preflightCheck(){
+  const urls = audioUrlsFor(1);
+  let i = 0;
+  function tryNext(){
+    if(i >= urls.length){
+      showAudioStatus(`Heads up: none of the ${urls.length} audio sources responded. Playback likely won't work in this browser/network — this may be a firewall or ad-blocker restriction.`, true);
+      return;
+    }
+    const probe = new Audio();
+    probe.preload = 'metadata';
+    probe.addEventListener('loadedmetadata', () => {
+      showAudioStatus('');
+    }, { once: true });
+    probe.addEventListener('error', () => {
+      i++;
+      tryNext();
+    }, { once: true });
+    probe.src = urls[i];
+  }
+  tryNext();
+})();
+</script>
+</body>
+</html>
